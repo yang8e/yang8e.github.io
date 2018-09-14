@@ -232,6 +232,158 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yangge.me/2018/09/14/apache下多版本php切换/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangge">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2018/01/29/5a6ec351ca6e7.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/14/apache下多版本php切换/" itemprop="url">apache下多版本php切换</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-14T15:11:03+08:00">
+                2018-09-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/14/apache下多版本php切换/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/09/14/apache下多版本php切换/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>使用update-alternatives命令选择默认版本的PHP</p>
+<ul>
+<li>PHP 5.6<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-alternatives --set php /usr/bin/php5.6</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>PHP 7.0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-alternatives --set php /usr/bin/php7.0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>PHP 7.1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-alternatives --set php /usr/bin/php7.1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>kail默认php7.2</p>
+</li>
+</ul>
+<hr>
+<blockquote>
+<p>要选择将与Apache一起使用的PHP版本，首先使用a2dismod命令禁用当前版本，然后使用a2enmod命令启用所需的版本：</p>
+</blockquote>
+<p>sudo a2dismod php7.0<br>sudo a2enmod php7.1<br>sudo systemctl restart apache2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://sempreupdate.com.br/como-instalar-versoes-diferentes-do-php-5-6-7-0-e-7-1-no-ubuntu/</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yangge.me/2018/08/11/注册表关闭Windows-Defender-防火墙/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1454,141 +1606,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yangge.me/2018/01/26/自动扫描域名-c段扫描脚本/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yangge">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://i.loli.net/2018/01/29/5a6ec351ca6e7.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/26/自动扫描域名-c段扫描脚本/" itemprop="url">自动扫描域名+c段扫描脚本</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-26T16:31:41+08:00">
-                2018-01-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/01/26/自动扫描域名-c段扫描脚本/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/01/26/自动扫描域名-c段扫描脚本/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>没事儿干写个自动扫描二级域名和c段的小东西。<br>url收集使用的是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theharvester</span><br></pre></td></tr></table></figure></p>
-<p>端口扫描调用的是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmap</span><br></pre></td></tr></table></figure></p>
-<p>脚本如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line"></span><br><span class="line">        print_r(&quot;            _ _           _                                              </span><br><span class="line">           | | |         | |                                             </span><br><span class="line">   ___ ___ | | | ___  ___| |_   _ __ ___   ___  ___ ___  __ _  __ _  ___ </span><br><span class="line">  / __/ _ \| | |/ _ \/ __| __| | &apos;_ ` _ \ / _ \/ __/ __|/ _` |/ _` |/ _ \</span><br><span class="line"> | (_| (_) | | |  __/ (__| |_  | | | | | |  __/\__ \__ \ (_| | (_| |  __/</span><br><span class="line">  \___\___/|_|_|\___|\___|\__| |_| |_| |_|\___||___/___/\__,_|\__, |\___|</span><br><span class="line">                                                               __/ |     </span><br><span class="line">                                                              |___/      </span><br><span class="line">-----------------------------------------------------------------------------</span><br><span class="line">                         使用方式</span><br><span class="line">        进行企业url收集，自动进行端口扫描，并进行C段自动扫描</span><br><span class="line">                php collect_message.php 企业域名</span><br><span class="line">                         example</span><br><span class="line">                php collect_message.php baidu.com</span><br><span class="line">                         yangge</span><br><span class="line">-----------------------------------------------------------------------------</span><br><span class="line">                                                            &quot;);</span><br><span class="line">      </span><br><span class="line">        if(isset($argv[1]))</span><br><span class="line">        &#123;</span><br><span class="line">        #把url找出来</span><br><span class="line">        $yuming = $argv[1];</span><br><span class="line">	exec(&quot;python theHarvester.py -d &quot; . $yuming . &quot; -b all -l 500 -s 300 &gt; &quot; . $yuming);</span><br><span class="line">        $fp = fopen($yuming,&quot;r&quot;);</span><br><span class="line">        $fr = fread($fp,filesize($yuming));</span><br><span class="line">        $find_url = explode(&quot;[-] Resolving hostnames IPs...&quot;, $fr);</span><br><span class="line">        $find_url_get = $find_url[1];</span><br><span class="line">        $find_url_get_1 = explode(&quot;[+] Virtual hosts:&quot;, $find_url_get);</span><br><span class="line">        $findurl = $find_url_get_1[0];</span><br><span class="line">        $ss = explode(&quot;\n&quot;,$findurl);</span><br><span class="line">        $add_array = array();</span><br><span class="line">        for($i=1;$i&lt;count($ss)-1;$i++)</span><br><span class="line">        &#123;</span><br><span class="line">            $dd = $ss[$i];</span><br><span class="line">            $gg = explode(&quot;:&quot;, $dd);</span><br><span class="line">            $c_ip = explode(&quot;.&quot;,$gg[0]);</span><br><span class="line">            $c_ip1 = $c_ip[0].&quot;.&quot;.$c_ip[1].&quot;.&quot;.$c_ip[2];   </span><br><span class="line">            array_push($add_array,$c_ip1);</span><br><span class="line">        &#125;</span><br><span class="line">        $unique_array = array_unique($add_array);</span><br><span class="line">        $get_c = fopen(&quot;c_ip.txt&quot;, &quot;w&quot;);</span><br><span class="line">        for($i=0;$i&lt;count($unique_array);$i++)</span><br><span class="line">        &#123;</span><br><span class="line">	    if(isset($unique_array[$i]))</span><br><span class="line">	    &#123;</span><br><span class="line">            	$t = $unique_array[$i];</span><br><span class="line">              fwrite($get_c, $t.&quot;/24&quot;);</span><br><span class="line">	    &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">         #nmap进行扫描</span><br><span class="line">        $f_open = fopen(&quot;iplist.txt&quot;,&quot;w&quot;);</span><br><span class="line">        for($i=1;$i&lt;count($ss);$i++)</span><br><span class="line">        &#123;</span><br><span class="line">            $tt = $ss[$i];</span><br><span class="line">            $aa = explode(&quot;:&quot;, $tt);</span><br><span class="line">            fwrite($f_open,$aa[0].&quot;\r\n&quot;);</span><br><span class="line">        &#125;</span><br><span class="line">	exec(&quot;sudo nmap -sS -T4 -sV -Pn -p23,22,80,443,445,873,3128,3306,1433,4848,4440,6082,6379,7001,7021,7080,7474,7755,7766,7888,8060,8880,8000,8881,8008,8080,8081,8087,8443,8090,8099,8088,8882,8883,8884,8885,8886,8887,8888,9043,9080,9090,9200,10000,18080,11211,27017,50000 -iL iplist.txt -oN iplist_port.txt&quot;);</span><br><span class="line">  exec(&quot;sudo nmap -sS -T4 -sV -Pn -p23,22,80,443,445,873,3128,3306,1433,4848,4440,6082,6379,7001,7021,7080,7474,7755,7766,7888,8060,8880,8000,8881,8008,8080,8081,8087,8443,8090,8099,8088,8882,8883,8884,8885,8886,8887,8888,9043,9080,9090,9200,10000,18080,11211,27017,50000 -iL c_ip.txt -oN c_ip.txt&quot;);</span><br><span class="line">&#125;</span><br><span class="line">else&#123;</span><br><span class="line">  echo &quot;\r\n\r\n\r\n\r\n请输入域名！！！&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p>脚本直接放到theharvester的根目录下就可以运行。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1643,7 +1660,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
