@@ -232,6 +232,148 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yangge.me/2018/05/15/jsonp劫持/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangge">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2018/01/29/5a6ec351ca6e7.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/15/jsonp劫持/" itemprop="url">jsonp劫持</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T10:31:57+08:00">
+                2018-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/15/jsonp劫持/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/05/15/jsonp劫持/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>jsonp主要是解决跨域的问题</li>
+<li>jsonp劫持的本质是CSRF</li>
+<li>但是可能有xss问题</li>
+</ul>
+<p>查找这类问题，首先要看几点</p>
+<h6 id="1-contant-type"><a href="#1-contant-type" class="headerlink" title="1. contant-type"></a>1. contant-type</h6><ul>
+<li>contant-type 是否严格定义了Content-Type: application/json，如果不是，极有可能造成xss问题，有一些人可能会写成application/javascript  而这个头在 IE 等浏览器下一样可以解析 HTML 导致 XSS 漏洞</li>
+</ul>
+<h6 id="2-Referer"><a href="#2-Referer" class="headerlink" title="2. Referer"></a>2. Referer</h6><ul>
+<li>删除referer是否可以正常访问,造成csrf漏洞，referer是否可以绕过？比如正常的referer是<a href="http://baidu.com?id=2222,如果我写成http://baidu.com.sss.com?id=2222或者http://ssss.com?baidu.com?id=2222，正则写的有问题的话，就可以绕过referer从而造成csrf。" target="_blank" rel="noopener">http://baidu.com?id=2222,如果我写成http://baidu.com.sss.com?id=2222或者http://ssss.com?baidu.com?id=2222，正则写的有问题的话，就可以绕过referer从而造成csrf。</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yangge.me/2018/02/11/渗透测试中xss验证方式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -678,7 +820,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -735,7 +877,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
